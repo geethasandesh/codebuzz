@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-scribble: "Caveat", cursive;
+
+  --color-sky-soft: #d7ebff;
+  --color-sky: #7db8f5;
+  --color-sky-deep: #3b8eea;
+  --color-ink: #141414;
+  --color-ink-soft: #2a2a2a;
+  --color-mute: #6b7280;
+  --color-paper: #f5f7fa;
+  --color-scribble: #ef4444;
+  --color-mint: #34d399;
+  --color-sun: #fbbf24;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-sky) 45%, white);
+}
+
+.font-scribble {
+  font-family: var(--font-scribble);
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(20, 20, 20, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 20, 20, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.cloud-top {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath fill='black' d='M0 40c80-30 160-30 240 0s160 30 240 0 160-30 240 0 160 30 240 0 160-30 240 0 160 30 240 0v40H0z'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+.torn-edge {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48' preserveAspectRatio='none'%3E%3Cpath fill='%23141414' d='M0 24c40-16 80 12 120 0s80-20 120 0 80 16 120 0 80-16 120 0 80 20 120 0 80-12 120 0 80 16 120 0 80-20 120 0 80 12 120 0 80-16 120 0 80 20 120 0 80-12 120 0v24H0z'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
