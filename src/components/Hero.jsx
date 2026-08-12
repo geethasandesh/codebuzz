@@ -1,12 +1,9 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { Check, Play, Star } from 'lucide-react'
+import { Check, Play } from 'lucide-react'
 import BlurText from './BlurText'
+import { ContainerScroll } from './ui/container-scroll-animation'
 import {
-  CartoonBook,
-  CartoonCode,
-  CartoonRocket,
   CloudDivider,
-  FloatingCharm,
   ScribbleCurveArrow,
   ScribbleStar,
   ScribbleUnderline,
@@ -64,7 +61,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-linear-to-b from-[#fafafa] via-[#f5f5f5] to-[#f0f0f0] pt-28 pb-0 text-ink"
+      className="relative overflow-x-hidden bg-linear-to-b from-[#fafafa] via-[#f5f5f5] to-[#f0f0f0] pt-28 pb-0 text-ink"
     >
       <div className="hero-grid pointer-events-none absolute inset-0 opacity-25" />
 
@@ -171,72 +168,48 @@ export default function Hero() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.45, delay: 0.15, ease }}
-            className="relative mx-auto mt-3 w-fit"
+            className="relative mx-auto mt-2 w-fit"
           >
             <p className="font-scribble text-xl text-scribble sm:text-2xl">start learning today</p>
             <ScribbleUnderline className="mx-auto -mt-1 h-4 w-40" color="#ef4444" />
           </motion.div>
         </div>
 
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 32, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease }}
-          className="relative mx-auto mt-10 max-w-4xl sm:mt-12"
-        >
-          <FloatingCharm className="absolute -left-2 top-8 z-20 hidden sm:block md:-left-8" delay={0.2}>
-            <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-3 shadow-xl backdrop-blur">
-              <CartoonBook className="h-16 w-16" />
-            </div>
-          </FloatingCharm>
-
-          <FloatingCharm className="absolute -right-1 top-0 z-20 hidden sm:block md:-right-6" delay={0.8}>
-            <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-3 shadow-xl backdrop-blur">
-              <CartoonRocket className="h-16 w-16" />
-            </div>
-          </FloatingCharm>
-
-          <FloatingCharm className="absolute bottom-16 right-4 z-20 hidden md:block" delay={1.2}>
-            <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-3 shadow-xl backdrop-blur">
-              <CartoonCode className="h-14 w-14" />
-            </div>
-          </FloatingCharm>
-
-          <div className="relative overflow-hidden rounded-[2rem] border-4 border-white/80 bg-ink shadow-[0_30px_80px_rgba(10,30,60,0.35)]">
-            <div className="aspect-[16/10] bg-[radial-gradient(circle_at_20%_20%,#3b8eea,transparent_40%),radial-gradient(circle_at_80%_30%,#34d399,transparent_35%),linear-gradient(160deg,#1a2a3a,#0f1720)] p-6 sm:p-10">
-              <div className="flex h-full flex-col justify-between">
-                <div className="flex items-start justify-between gap-4">
-                  <button
-                    type="button"
-                    className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-ink shadow-lg"
-                    aria-label="Play demo"
-                  >
-                    <Play size={20} fill="currentColor" />
-                  </button>
-                  <div className="rounded-2xl bg-white/95 px-4 py-3 text-left shadow-lg">
-                    <div className="mb-1 flex items-center gap-1 text-sun">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} size={14} fill="currentColor" />
-                      ))}
-                    </div>
-                    <p className="text-sm font-extrabold text-ink">4.9 learner rating</p>
-                    <p className="text-xs font-medium text-mute">Trusted by growing AI talent</p>
-                  </div>
-                </div>
-
-                <div className="mt-8 max-w-md rounded-3xl bg-white/10 p-5 text-left text-white backdrop-blur-md sm:mt-0">
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-soft">
-                    Learning preview
-                  </p>
-                  <p className="mt-2 text-2xl font-extrabold leading-tight">
-                    From Python foundations to production AI — with mentors beside you.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        <div className="relative mx-auto -mt-2 max-w-5xl sm:-mt-1">
+          <ContainerScroll
+            caption={
+              <motion.div
+                initial={reduce ? false : { opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.45, delay: 0.1, ease }}
+                className="relative mx-auto w-fit"
+              >
+                <ScribbleZigzag
+                  className="pointer-events-none absolute -left-10 -top-3 hidden h-8 w-16 rotate-[-6deg] sm:block"
+                  color="#fb923c"
+                />
+                <p className="font-scribble text-2xl text-orange-500 sm:text-3xl">
+                  try the app live — it&apos;s your dashboard
+                </p>
+                <ScribbleUnderline className="mx-auto -mt-1 h-4 w-56" color="#ef4444" />
+                <p className="mt-1 font-scribble text-lg text-ink/55 sm:text-xl">
+                  scroll, click &amp; explore ✦
+                </p>
+              </motion.div>
+            }
+          >
+            {/* CafeOS-style live app embed: no browser chrome — just the product UI */}
+            <iframe
+              title="CodeBuzz learning app"
+              src="https://learning.codebuzz.us/instructor/schedule"
+              className="h-full min-h-[24rem] w-full border-0 bg-white sm:min-h-[28rem] md:min-h-[34rem]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allow="clipboard-write; fullscreen"
+            />
+          </ContainerScroll>
+        </div>
       </div>
 
       <CloudDivider className="relative z-10 mt-10" fill="#ffffff" />
