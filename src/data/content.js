@@ -3,7 +3,7 @@ export const navLinks = [
   { label: 'Curriculum', href: '#curriculum' },
   { label: 'Mentors', href: '#mentors' },
   { label: 'Reviews', href: '#reviews' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'FAQ', href: '#faq' },
 ]
 
 export const heroBullets = [
@@ -116,23 +116,38 @@ export const companies = [
 export const team = [
   {
     name: 'Saneeta Narrlla',
-    role: 'Founder & Technologist — Data • Security • AI Education',
+    title: 'Founder & Technologist, CodeBuzz',
+    subtitle: 'Data • Security • AI Education',
+    bio: '',
+    featured: true,
   },
   {
     name: 'Siddharth Pothukuchi',
-    role: 'AI/ML Engineer — IIT Bhilai & Purdue University Graduate',
+    title: 'AI/ML Engineer',
+    subtitle: 'IIT Bhilai & Purdue University Graduate',
+    bio: '',
+    featured: true,
   },
   {
     name: 'Ravi Doddasomayajula',
-    role: 'Tech Lead & Mentor — MS Georgia Tech, PhD George Mason',
+    title: 'Tech Lead & Mentor',
+    subtitle: 'Senior Software Engineer',
+    bio: 'Lead Data Scientist with 8+ years of experience in financial anomaly detection and generative AI; MS (Georgia Tech), PhD (George Mason University).',
+    featured: true,
   },
   {
     name: 'Dilip Yeluguri',
-    role: 'Data and Finance @ CodeBuzz',
+    title: 'Data and Finance @ CodeBuzz',
+    subtitle: '',
+    bio: '',
+    featured: false,
   },
   {
     name: 'Vijay Chakilam',
-    role: 'Founder @ Kooper — MS Quantitative Analysis',
+    title: 'Founder @ Kooper',
+    subtitle: 'University of Cincinnati MS Quantitative Analysis',
+    bio: '',
+    featured: false,
   },
 ]
 

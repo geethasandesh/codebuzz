@@ -14,8 +14,7 @@ import {
   ScribbleZigzag,
 } from './scribbles/Scribbles'
 import { heroBullets } from '../data/content'
-
-const ease = [0.22, 1, 0.36, 1]
+import { ease, staggerContainer, fadeUp } from '../lib/motion'
 
 const secondLineWords = [
   { text: 'At CodeBuzz', pill: true },
@@ -60,6 +59,8 @@ function HeadlineLine({ words, startDelay = 0, delay = 45 }) {
 }
 
 export default function Hero() {
+  const reduce = useReducedMotion()
+
   return (
     <section
       id="top"
@@ -74,15 +75,15 @@ export default function Hero() {
           </p>
 
           <div className="mx-auto flex w-full max-w-5xl items-center justify-center gap-3 md:gap-5">
-            {/* Left rail — same width as right */}
+            {/* Left rail — same width as right so content stays centered */}
             <div className="pointer-events-none hidden w-28 shrink-0 flex-col items-center justify-center sm:flex md:w-32 lg:w-36">
-              <ScribbleCurveArrow className="h-20 w-24 rotate-[-8deg] md:h-24 md:w-28" color="#3b8eea" />
-              <p className="font-scribble mt-1 text-center text-lg text-sky-deep md:text-xl">
+              <ScribbleCurveArrow className="mx-auto h-20 w-24 rotate-[-8deg] md:h-24 md:w-28" color="#3b8eea" />
+              <p className="font-scribble mt-1 w-full text-center text-lg text-sky-deep md:text-xl">
                 start here
               </p>
             </div>
 
-            <h1 className="min-w-0 flex-1 text-center text-4xl font-extrabold leading-[1.15] tracking-tight text-ink sm:text-[2.75rem] md:text-5xl lg:text-[4.1rem]">
+            <h1 className="mx-auto min-w-0 flex-1 text-center text-3xl font-extrabold leading-[1.15] tracking-tight text-ink sm:text-[2.15rem] md:text-4xl lg:text-[3.25rem]">
               <span className="relative mx-auto inline-block whitespace-nowrap max-[420px]:whitespace-normal">
                 <BlurText
                   as="span"
@@ -99,57 +100,91 @@ export default function Hero() {
                   color="#ef4444"
                 />
               </span>
-              <span className="mt-3 block whitespace-nowrap max-[520px]:whitespace-normal">
+              <span className="mt-3 flex justify-center whitespace-nowrap max-[520px]:whitespace-normal">
                 <HeadlineLine words={secondLineWords} startDelay={220} delay={45} />
               </span>
             </h1>
 
-            {/* Right rail — matching width so headline stays centered */}
+            {/* Right rail — matching width */}
             <div className="pointer-events-none hidden w-28 shrink-0 flex-col items-center justify-center sm:flex md:w-32 lg:w-36">
-              <ScribbleStar className="mb-2 h-7 w-7 md:h-8 md:w-8" color="#f59e0b" />
-              <ScribbleZigzag className="h-14 w-28 rotate-[6deg] md:h-16 md:w-32" color="#141414" />
+              <ScribbleStar className="mx-auto mb-2 h-7 w-7 md:h-8 md:w-8" color="#f59e0b" />
+              <ScribbleZigzag className="mx-auto h-14 w-28 rotate-[6deg] md:h-16 md:w-32" color="#141414" />
             </div>
           </div>
 
-          <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-ink/75 sm:text-xl">
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.45, ease }}
+            className="mx-auto mt-6 max-w-2xl text-center text-base font-medium text-ink/75 sm:text-lg md:text-xl"
+          >
             Faster. Smarter. Better. Learn, experiment, and deploy AI/ML skills with
             confidence.
-          </p>
+          </motion.p>
 
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+          <motion.div
+            variants={reduce ? undefined : staggerContainer(0.06, 0.1)}
+            initial={reduce ? false : 'hidden'}
+            whileInView={reduce ? undefined : 'show'}
+            viewport={{ once: true, margin: '-40px' }}
+            className="mt-7 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-5"
+          >
             {heroBullets.map((item) => (
-              <div key={item} className="flex items-center gap-2 text-sm font-semibold text-ink">
+              <motion.div
+                key={item}
+                variants={reduce ? undefined : fadeUp}
+                className="flex items-center gap-2 text-xs font-semibold text-ink sm:text-sm"
+              >
                 <span className="grid h-5 w-5 place-items-center rounded-full bg-ink text-[#fafafa]">
                   <Check size={13} strokeWidth={3} />
                 </span>
                 {item}
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5, delay: 0.1, ease }}
+            className="mt-8 flex w-full flex-col items-center justify-center gap-3 px-2 sm:flex-row"
+          >
             <a
-              href="#pricing"
-              className="inline-flex min-w-[240px] items-center justify-center rounded-2xl bg-ink px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_12px_30px_rgba(20,20,20,0.18)] transition hover:-translate-y-0.5"
+              href="https://www.codebuzz.us/"
+              className="inline-flex w-full min-w-0 items-center justify-center rounded-2xl bg-ink px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_12px_30px_rgba(20,20,20,0.18)] transition hover:-translate-y-0.5 sm:w-auto sm:min-w-[240px]"
             >
               Get Started For Free
             </a>
             <a
               href="#curriculum"
-              className="inline-flex items-center gap-2 rounded-2xl border border-ink/15 bg-white/60 px-6 py-4 text-sm font-bold uppercase tracking-wide text-ink backdrop-blur transition hover:bg-white"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-ink/15 bg-white/60 px-6 py-4 text-sm font-bold uppercase tracking-wide text-ink backdrop-blur transition hover:bg-white sm:w-auto"
             >
               <Play size={16} fill="currentColor" />
               Watch Demo
             </a>
-          </div>
+          </motion.div>
 
-          <div className="relative mx-auto mt-3 w-fit">
-            <p className="font-scribble text-2xl text-scribble">start learning today</p>
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.45, delay: 0.15, ease }}
+            className="relative mx-auto mt-3 w-fit"
+          >
+            <p className="font-scribble text-xl text-scribble sm:text-2xl">start learning today</p>
             <ScribbleUnderline className="mx-auto -mt-1 h-4 w-40" color="#ef4444" />
-          </div>
+          </motion.div>
         </div>
 
-        <div className="relative mx-auto mt-12 max-w-4xl">
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 32, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease }}
+          className="relative mx-auto mt-10 max-w-4xl sm:mt-12"
+        >
           <FloatingCharm className="absolute -left-2 top-8 z-20 hidden sm:block md:-left-8" delay={0.2}>
             <div className="rounded-[1.5rem] border border-white/70 bg-white/90 p-3 shadow-xl backdrop-blur">
               <CartoonBook className="h-16 w-16" />
@@ -201,7 +236,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <CloudDivider className="relative z-10 mt-10" fill="#ffffff" />

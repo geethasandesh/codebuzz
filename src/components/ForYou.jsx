@@ -1,62 +1,123 @@
-import { Check, X } from 'lucide-react'
-import AnimateIn from './ui/AnimateIn'
-import { CartoonBook, FloatingCharm, ScribbleArrow } from './scribbles/Scribbles'
+import { ArrowDownRight, Check, X } from 'lucide-react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { FloatingCharm } from './scribbles/Scribbles'
 import { forYou, notForYou } from '../data/content'
+import keychainImg from '../assets/keychain.png'
+import { ease } from '../lib/motion'
 
 export default function ForYou() {
+  const reduce = useReducedMotion()
+
   return (
     <section className="bg-white py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="relative mx-auto mb-12 max-w-2xl text-center">
-          <div className="pointer-events-none absolute -left-2 -top-8 sm:-left-16">
-            <ScribbleArrow className="h-16 w-24 rotate-[-10deg]" />
-            <p className="font-scribble text-xl text-scribble">check again before enroll</p>
+        {/* Header */}
+        <div className="relative mx-auto mb-14 max-w-4xl sm:mb-16 md:mb-20">
+          <div className="pointer-events-none absolute -left-2 top-2 hidden sm:block md:-left-10 lg:-left-16">
+            <ArrowDownRight
+              size={28}
+              strokeWidth={2}
+              className="ml-8 text-[#ef4444]"
+              aria-hidden="true"
+            />
+            <p className="font-scribble text-lg leading-tight text-[#ef4444] md:text-xl">
+              Check again before enroll
+            </p>
           </div>
-          <AnimateIn>
-            <h2 className="text-3xl font-extrabold tracking-tight text-ink sm:text-5xl">
-              Is this for you?
-            </h2>
-          </AnimateIn>
-          <FloatingCharm className="absolute -right-2 top-0 hidden sm:block md:-right-10" delay={0.3}>
-            <div className="rounded-2xl bg-paper p-2 shadow-md">
-              <CartoonBook className="h-14 w-14" />
-            </div>
+
+          <motion.h2
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.45, ease }}
+            className="text-center text-[clamp(2.75rem,9vw,5.75rem)] font-extrabold leading-[1.02] tracking-tight text-ink"
+          >
+            Is this for you?
+          </motion.h2>
+
+          <FloatingCharm
+            className="pointer-events-none absolute -right-1 top-0 hidden sm:block md:-right-4 md:-top-2 lg:-right-8"
+            delay={0.2}
+          >
+            <img
+              src={keychainImg}
+              alt=""
+              className="h-20 w-auto object-contain mix-blend-screen md:h-24 lg:h-28"
+              loading="lazy"
+            />
           </FloatingCharm>
+
+          <p className="mt-3 text-center font-scribble text-lg text-[#ef4444] sm:hidden">
+            Check again before enroll
+          </p>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-2">
-          <AnimateIn>
-            <div className="h-full rounded-[2rem] bg-paper p-7">
-              <h3 className="text-xl font-extrabold text-ink">This is not for you if:</h3>
-              <ul className="mt-6 space-y-4">
-                {notForYou.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-mute">
-                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-scribble/10 text-scribble">
-                      <X size={14} />
-                    </span>
+        {/* Split card — compact, centered */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5, ease }}
+          className="mx-auto max-w-4xl overflow-hidden rounded-2xl sm:rounded-[1.35rem] lg:grid lg:grid-cols-2"
+        >
+          {/* Not for you — light panel */}
+          <div className="bg-[#eef1f4] p-5 sm:p-6">
+            <h3 className="text-sm font-extrabold text-ink sm:text-[15px]">
+              This is not for you if:
+            </h3>
+            <ul className="mt-3.5 space-y-2">
+              {notForYou.map((item, i) => (
+                <motion.li
+                  key={item}
+                  initial={reduce ? false : { opacity: 0, x: -12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: i * 0.05, ease }}
+                  className="flex items-center gap-2.5 rounded-lg bg-white px-3 py-2.5"
+                >
+                  <X
+                    size={15}
+                    strokeWidth={2.5}
+                    className="shrink-0 text-[#ef4444]"
+                    aria-hidden="true"
+                  />
+                  <span className="text-[13px] leading-snug text-[#6b7280]">
                     {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </AnimateIn>
+                  </span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
 
-          <AnimateIn delay={0.1}>
-            <div className="h-full rounded-[2rem] bg-ink p-7 text-white">
-              <h3 className="text-xl font-extrabold">This is for you if:</h3>
-              <ul className="mt-6 space-y-4">
-                {forYou.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-white/85">
-                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-mint/20 text-mint">
-                      <Check size={14} />
-                    </span>
+          {/* For you — dark panel */}
+          <div className="bg-[#2b2525] p-5 sm:p-6">
+            <h3 className="text-sm font-extrabold text-white sm:text-[15px]">
+              This is for you if:
+            </h3>
+            <ul className="mt-3.5 space-y-2">
+              {forYou.map((item, i) => (
+                <motion.li
+                  key={item}
+                  initial={reduce ? false : { opacity: 0, x: 12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: i * 0.05, ease }}
+                  className="flex items-center gap-2.5 rounded-lg border border-white/[0.06] bg-white/[0.06] px-3 py-2.5"
+                >
+                  <span
+                    className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#fbbf24]/15"
+                    aria-hidden="true"
+                  >
+                    <Check size={12} strokeWidth={2.5} className="text-[#fbbf24]" />
+                  </span>
+                  <span className="text-[13px] leading-snug text-white/85">
                     {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </AnimateIn>
-        </div>
+                  </span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

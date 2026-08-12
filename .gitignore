@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# rembg / ML model cache (too large for GitHub)
+.u2net/
