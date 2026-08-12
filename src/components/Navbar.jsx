@@ -44,13 +44,13 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href="https://users.codebuzz.us/auth"
+            href="https://learning.codebuzz.us"
             className="text-sm font-semibold text-ink-soft transition hover:text-ink"
           >
             Sign In
           </a>
           <a
-            href="https://users.codebuzz.us/auth"
+            href="https://learning.codebuzz.us"
             className="rounded-full bg-ink px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-ink-soft"
           >
             Get Started

@@ -201,9 +201,9 @@ export default function Hero() {
           >
             {/* CafeOS-style live app embed: no browser chrome — just the product UI */}
             <iframe
-              title="CodeBuzz learning app"
-              src="https://learning.codebuzz.us/instructor/schedule"
-              className="h-full min-h-[24rem] w-full border-0 bg-white sm:min-h-[28rem] md:min-h-[34rem]"
+              title="CodeBuzz live demo"
+              src="https://learning.codebuzz.us/demo"
+              className="pointer-events-auto h-full min-h-[24rem] w-full rounded-[1.1rem] border-0 bg-white sm:min-h-[28rem] sm:rounded-[1.25rem] md:min-h-[34rem]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allow="clipboard-write; fullscreen"
